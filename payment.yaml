@@ -40,7 +40,7 @@ spec:
      component: payment
   ##pod defination
  template:
-   metadata: 
+   metadata:
     labels:
      project: roboshop
      tier: backend
