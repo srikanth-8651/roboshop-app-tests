@@ -42,7 +42,7 @@ spec:
  template:
    metadata: 
     labels:
-     project: roboshop-dev
+     project: roboshop
      tier: backend
      component: payment
    spec:
