@@ -1,65 +1,58 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+ name: user
+ namespace: roboshop-dev
+data:
+  MONGO: "true"
+  REDIS_URL: 'redis://redis:6379'
+  MONGO_URL: "mongodb://mongodb:27017/users"
+
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: redis
-  namespace: roboshop-dev
-  # labels related to deployment resource just for reference
-  labels:
-    project: roboshop
-    tier: db
-    component: redis
-
+ name: user
+ namespace: roboshop-dev
 spec:
-  replicas: 1
+ replicas: 1
 
-  selector:
-    # these labels are used to match the Pod
-    matchLabels:
+ selector:
+  matchLabels:
+     project: roboshop
+     tier: backend
+     component: user
+
+ template:
+   metadata: 
+    labels:
       project: roboshop
-      tier: db
-      component: redis
-
-  # Pod definition
-  template:
-    metadata:
-      labels:
-        project: roboshop
-        tier: db
-        component: redis
-
-    spec:
-      containers:
-        - name: redis
-          image: redis:7
-
+      tier: backend
+      component: user
+   spec:
+    containers:
+     - name: user
+       image: srikanth865/user:v2
+       envFrom: #envfrom is list of task doing it may be one or many in list so we give  - 
+        - configMapRef:
+           name: user
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: redis
-  namespace: roboshop-dev
-  # service labels, just for reference
-  labels:
-    project: roboshop
-    tier: db
-    component: redis
-
+ name: user
+ namespace: roboshop-dev
 spec:
-  selector:
-    project: roboshop
-    tier: db
-    component: redis
 
-  ports:
-    - protocol: TCP
-      port: 6379
-      targetPort: 6379
+ selector:
+  #this selector  service labels going to match the user pod labels
+     project: roboshop
+     tier: backend
+     component: user
 
+ ports:
+  - protocol: TCP
+    port: 8080 #serviceport
+    targetPort: 8080  #container port
 
-
-
-
-
-
-
-
+ 
