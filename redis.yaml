@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: redis
-  namespace: roboshop
+  namespace: roboshop-dev
   # labels related to deployment resource just for reference
   labels:
     project: roboshop
@@ -37,7 +37,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: redis
-  namespace: roboshop
+  namespace: roboshop-dev
   # service labels, just for reference
   labels:
     project: roboshop
