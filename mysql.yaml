@@ -31,7 +31,7 @@ spec:
  template:
   metadata:
    name: mysql
-   namespace: roboshop
+   namespace: roboshop-dev
    labels:
     project: roboshop
     tier: db
