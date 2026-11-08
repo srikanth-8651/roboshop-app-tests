@@ -1,0 +1,65 @@
+apiVersion: v1
+kind: ConfigMap
+metadata: 
+  name: catalogue
+  namespace: roboshop-sit
+data:
+  MONGO: "true"
+  MONGO_URL: "mongodb://mongodb:27017/catalogue"
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: catalogue
+  namespace: roboshop-sit
+   # labels related to deployment resource just for reference
+  labels:
+    project: roboshop
+    tier: backend
+    component: catalogue
+spec:
+ replicas: 1  #how many Pods you want
+ selector: #  which Pods the Deployment manages
+    matchLabels:  #matchLabels is inside of selector because it contains the labels used to identify those Pods.
+    #this labels is match the pod containers
+        project: roboshop
+        tier: backend
+        component: catalogue
+##its a pod defination
+ template:
+  metadata:
+    labels:
+       project: roboshop
+       tier: backend
+       component: catalogue
+  spec:
+   containers:
+     - name: catalogue
+       image: srikanth865/catalogue:v1
+       envFrom:
+        - configMapRef:
+           name: catalogue
+      
+---
+apiVersion: v1
+kind: Service
+metadata:
+ name: catalogue
+ namespace: roboshop-sit
+ # servicer labels  resource just for reference
+ labels:
+    project: roboshop
+    tier: backend
+    component: catalogue
+spec:
+ selector:
+ #this selector  service labels going to match the catalogue pod labels
+    project: roboshop
+    tier: backend
+    component: catalogue
+
+ ports:  #ports expects a list, so we gik=ve like this - 
+  - protocol: TCP
+    port: 8080 #serviceport it will listen mongodb service
+    targetPort: 8080  #container port

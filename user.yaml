@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
  name: user
- namespace: roboshop-dev
+ namespace: roboshop-sit
 data:
   MONGO: "true"
   REDIS_URL: 'redis://redis:6379'
@@ -12,7 +12,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
  name: user
- namespace: roboshop-dev
+ namespace: roboshop-sit
 spec:
  replicas: 1
 
@@ -40,7 +40,7 @@ apiVersion: v1
 kind: Service
 metadata:
  name: user
- namespace: roboshop-dev
+ namespace: roboshop-sit
 spec:
 
  selector:

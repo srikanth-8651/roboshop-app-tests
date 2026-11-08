@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
  name: payment
- namespace: roboshop-dev
+ namespace: roboshop-sit
 data:
     CART_HOST: "cart"
     CART_PORT: "8080"
@@ -14,7 +14,7 @@ apiVersion: v1
 kind: Secret
 metadata:
   name: payment
-  namespace: roboshop-dev
+  namespace: roboshop-sit
   labels:
      project: roboshop
      tier: db
@@ -29,7 +29,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
  name: payment
- namespace: roboshop-dev
+ namespace: roboshop-sit
 spec:
  replicas: 1
 
@@ -86,11 +86,11 @@ apiVersion: v1
 kind: Service
 metadata:
  name: payment
- namespace: roboshop-dev
+ namespace: roboshop-sit
 spec:
  selector:
   #this selector  service labels going to match the payment pod labels
-     project: roboshop-dev
+     project: roboshop-sit
      tier: backend
      component: payment
  ports:
