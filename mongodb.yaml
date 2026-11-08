@@ -25,7 +25,7 @@ spec:
     spec:
       containers:
       - name: mongodb
-        image: joinsitops/mongodb:4.0.0
+        image: joindevops/mongodb:4.0.0
 ---
 apiVersion: v1
 kind: Service
