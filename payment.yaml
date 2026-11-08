@@ -90,7 +90,7 @@ metadata:
 spec:
  selector:
   #this selector  service labels going to match the payment pod labels
-     project: roboshop-sit
+     project: roboshop
      tier: backend
      component: payment
  ports:
