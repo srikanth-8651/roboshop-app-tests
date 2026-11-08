@@ -55,12 +55,14 @@ spec:
               path: /health
               port: liveness-port
             periodSeconds: 10
+            timeoutSeconds: 5
 
           livenessProbe:
             httpGet:
               path: /health
               port: liveness-port
             periodSeconds: 10
+            timeoutSeconds: 5
 
           envFrom:
             - configMapRef:
